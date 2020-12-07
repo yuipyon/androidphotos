@@ -29,7 +29,7 @@ import java.util.ArrayList;
 import app.Album;
 
 public class MainActivity extends AppCompatActivity{
-
+//testing
     private ListView albumList;
     private Button create;
     private EditText albumName;
