@@ -7,4 +7,9 @@
     <string name="enter_album_information">Enter Album Information</string>
     <string name="homescreen">Homescreen</string>
     <string name="album_view">Album View</string>
+    <string name="tags">tags</string>
+    <string name="caption">caption</string>
+    <string name="previous">Previous</string>
+    <string name="next">Next</string>
+    <string name="todo">TODO</string>
 </resources>

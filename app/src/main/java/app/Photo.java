@@ -1,7 +1,9 @@
 package app;
 
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
+import android.widget.ImageView;
 
 import androidx.annotation.RequiresApi;
 
@@ -59,7 +61,13 @@ public class Photo implements Serializable{
      */
     public LocalDate date;
 
-    public Uri uri;
+    transient Bitmap image;
+
+    public ImageView pic;
+
+    public String uri;
+
+
 
     /**
      * Photo creates a new instance of the Photo class.
@@ -68,6 +76,14 @@ public class Photo implements Serializable{
         this.tags = new ArrayList<Tag>();
     }
 
+
+    public void setImage(Bitmap image){
+        this.image = image;
+    }
+
+    public Bitmap getImage(){
+        return image;
+    }
 
     /**
      * toString returns the name of the photo.

@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.photos">
     
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -23,8 +24,16 @@
         </activity>
 
         <!-- Album View Screen -->
-        <activity android:name=".Album_View"
-            tools:ignore="DuplicateActivity">
+        <activity android:name=".Album_View">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- Photo Display -->
+        <activity android:name=".Photo_Display">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -38,21 +38,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginBottom="56dp"
+        android:layout_marginBottom="164dp"
+        android:onClick="addPhoto"
         android:text="Add Photo"
-        app:layout_constraintBottom_toTopOf="@+id/delete"
-        app:layout_constraintStart_toStartOf="parent"
-        android:onClick="addPhoto"/>
-
-    <Button
-        android:id="@+id/delete"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginBottom="192dp"
-        android:text="Delete Photo"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/display"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
@@ -61,11 +50,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="19dp"
         android:layout_marginLeft="19dp"
-        android:layout_marginTop="60dp"
         android:layout_marginBottom="84dp"
         android:text="Display Photo"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/delete" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

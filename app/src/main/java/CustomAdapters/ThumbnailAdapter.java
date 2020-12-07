@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.example.photos.R;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -43,12 +44,14 @@ public class ThumbnailAdapter<Content> extends ArrayAdapter
         Photo photo = (Photo) data.get(position);
         Bitmap bitmap = null;
         try {
-            bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), photo.uri);
+            Uri uri = Uri.parse(photo.filepath);
+            bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), Uri.parse(photo.uri));
         } catch (IOException e) {
             e.printStackTrace();
         }
         iv.setImageBitmap(bitmap);
         tv.setText(photo.photoName);
+
 
         return currentView;
     }
