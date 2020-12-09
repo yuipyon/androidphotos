@@ -50,6 +50,10 @@ public class MainActivity extends AppCompatActivity{
 
         loadAlbumList();
 
+        if(getIntent().getExtras() != null){
+            items = (ArrayList<Album>) getIntent().getSerializableExtra("Album Content");
+        }
+
         listAdapter = new ArrayAdapter<Album>(this, android.R.layout.simple_list_item_1, items);
         albumList.setAdapter(listAdapter);
 
@@ -148,43 +152,60 @@ public class MainActivity extends AppCompatActivity{
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void createAlbum(View view) throws IOException {
-        String name = albumName.getText().toString();
 
-        Album newAlbum = new Album(name);
+        Context context = this;
 
-        boolean exists = albumExists(newAlbum, items);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Create an Album");
+        builder.setCancelable(true);
 
-        if(exists == true){
-            AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
-            builder1.setMessage("This Album already exists");
-            builder1.setCancelable(true);
+        final EditText input = new EditText(this);
+        input.setText("Enter the album's name", TextView.BufferType.EDITABLE);
+        input.setInputType(InputType.TYPE_CLASS_TEXT);
+        builder.setView(input);
 
-            builder1.setPositiveButton(
-                    "Go Back",
-                    new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            dialog.cancel();
+        builder.setPositiveButton(
+                "Create Album",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        String name = input.getText().toString();
+
+                        Album newAlbum = new Album(name);
+
+                        boolean exists = albumExists(newAlbum, items);
+
+                        if(exists == true){
+                            AlertDialog.Builder builder1 = new AlertDialog.Builder(context);
+                            builder1.setMessage("This Album already exists");
+                            builder1.setCancelable(true);
+
+                            builder1.setPositiveButton(
+                                    "Go Back",
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int id) {
+                                            dialog.cancel();
+                                        }
+                                    });
+
+                            AlertDialog alert11 = builder1.create();
+                            alert11.show();
+                        } else {
+                            listAdapter.add(newAlbum);
+                            listAdapter.notifyDataSetChanged();
+                            saveAlbumList();
                         }
-                    });
 
-            /*builder1.setNegativeButton(
-                    "No",
-                    new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            dialog.cancel();
-                        }
-                    });*/
+                        System.out.println(items);
+                        System.out.println(listAdapter);
+                    }
+                });
 
-            AlertDialog alert11 = builder1.create();
-            alert11.show();
-        } else {
-            listAdapter.add(newAlbum);
-            listAdapter.notifyDataSetChanged();
-            saveAlbumList();
-        }
+        AlertDialog alert = builder.create();
+        alert.show();
     }
-    public void showSearchPhotos(View view) {
-        Intent intent = new Intent(this, SearchPhotos.class);
+
+    public void showSearchPhotos(View view){
+        Intent intent=new Intent(this,SearchPhotos.class);
         startActivity(intent);
     }
 }

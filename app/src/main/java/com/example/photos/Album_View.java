@@ -1,6 +1,7 @@
 package com.example.photos;
 
 import android.app.ActionBar;
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -162,10 +163,6 @@ public class Album_View extends AppCompatActivity {
                                         }
                                 );
 
-
-
-
-
                                 AlertDialog alert = builder2.create();
                                 alert.show();
                             }
@@ -220,6 +217,14 @@ public class Album_View extends AppCompatActivity {
         if (items == null) {
             items = new ArrayList<>();
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        saveData();
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("Album Content", items);
+        startActivity(intent);
     }
 
     public void addPhoto(View view) {
