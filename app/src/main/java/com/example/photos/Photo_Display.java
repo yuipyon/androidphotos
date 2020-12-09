@@ -78,9 +78,16 @@ public class Photo_Display extends AppCompatActivity {
         removeTag = findViewById(R.id.removeTag);
         tags = findViewById(R.id.tags);
 
-        tagtypes.add("person");
-        tagtypes.add("location");
-        tags.setText(curr_photo.printTags());
+        if(tagtypes == null){
+            tagtypes = new ArrayList<String>();
+            tagtypes.add("person");
+            tagtypes.add("location");
+            tags.setText(curr_photo.printTags());
+        } else {
+            tagtypes.add("person");
+            tagtypes.add("location");
+            tags.setText(curr_photo.printTags());
+        }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
