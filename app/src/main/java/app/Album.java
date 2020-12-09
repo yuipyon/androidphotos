@@ -62,8 +62,6 @@ public class Album implements Serializable{
     /**
      * Album creates a new instance of Album.
      * @param name
-     * @param numPhotos
-     * @param dateRange
      */
     public Album(String name) {
         this.name = name;

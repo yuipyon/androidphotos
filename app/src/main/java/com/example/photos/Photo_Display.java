@@ -13,8 +13,10 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import app.Album;
+import app.TagType;
 
 
 public class Photo_Display extends AppCompatActivity {
@@ -22,9 +24,12 @@ public class Photo_Display extends AppCompatActivity {
     ImageView image;
     Button goBack;
     Button goForward;
+    Button addTag;
+    Button removeTag;
+    ArrayList<TagType> tagtypes;
 
     Album curr_album;
-    int index = 0;
+    int index;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -50,12 +55,17 @@ public class Photo_Display extends AppCompatActivity {
 
         goBack = findViewById(R.id.goBack);
         goForward = findViewById(R.id.goForward);
+        addTag = findViewById(R.id.addTag);
+        removeTag = findViewById(R.id.removeTag);
+
+        tagtypes.add(new TagType("person", true));
+        tagtypes.add(new TagType("location", false));
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void forward(View view) {
         index++;
-        if(index >= 0){
+        if(index < curr_album.photos.size()){
             Bitmap bitmap = null;
 
             try {

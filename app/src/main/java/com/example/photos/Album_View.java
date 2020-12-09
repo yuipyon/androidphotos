@@ -93,15 +93,6 @@ public class Album_View extends AppCompatActivity {
                 builder1.setMessage("Options");
                 builder1.setCancelable(true);
 
-                final ArrayAdapter<Album> adp = new ArrayAdapter<Album>(context, android.R.layout.simple_list_item_1, items);
-
-                final Spinner sp = new Spinner(Album_View.this);
-                sp.setLayoutParams(new ViewGroup.LayoutParams(ActionBar.LayoutParams.WRAP_CONTENT, ActionBar.LayoutParams.WRAP_CONTENT));
-                sp.setAdapter(adp);
-
-                builder1.setView(sp);
-
-
                 builder1.setPositiveButton(
                         "View Photo",
                         new DialogInterface.OnClickListener() {
@@ -119,38 +110,64 @@ public class Album_View extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 // First delete it from current album
-                                photoAdapter.remove(photo);
-                                curr_album.photos.remove(photo);
+                                AlertDialog.Builder builder2 = new AlertDialog.Builder(context);
+                                builder2.setMessage("Select the album which you want to move the photo too");
+                                builder2.setCancelable(true);
 
-                                for(int i = 0; i <= items.size() - 1; i++){
-                                    if(items.get(i).equals(curr_album)){
-                                        items.remove(i);
-                                        break;
-                                    }
-                                }
-                                items.add(curr_album);
+                                final ArrayAdapter<Album> adp = new ArrayAdapter<Album>(context, android.R.layout.simple_list_item_1, items);
 
-                                // Now lets add it to the selected album
-                                Album selectedAlbum = (Album) sp.getSelectedItem();
-                                System.out.println("Selected Album is: " + selectedAlbum);
+                                final Spinner sp = new Spinner(Album_View.this);
+                                sp.setLayoutParams(new ViewGroup.LayoutParams(ActionBar.LayoutParams.WRAP_CONTENT, ActionBar.LayoutParams.WRAP_CONTENT));
+                                sp.setAdapter(adp);
 
-                                if(selectedAlbum.photos == null){
-                                    selectedAlbum.photos = new ArrayList<Photo>();
-                                    selectedAlbum.photos.add(photo);
-                                } else {
-                                    selectedAlbum.photos.add(photo);
-                                }
+                                builder2.setView(sp);
 
-                                for(int i = 0; i <= items.size() - 1; i++){
-                                    if(items.get(i).equals(selectedAlbum)){
-                                        items.remove(i);
-                                        break;
-                                    }
-                                }
-                                items.add(selectedAlbum);
+                                builder2.setNeutralButton(
+                                        "Move Photo",
+                                        new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                photoAdapter.remove(photo);
+                                                curr_album.photos.remove(photo);
 
-                                saveData();
+                                                for(int i = 0; i <= items.size() - 1; i++){
+                                                    if(items.get(i).equals(curr_album)){
+                                                        items.remove(i);
+                                                        break;
+                                                    }
+                                                }
+                                                items.add(curr_album);
 
+                                                // Now lets add it to the selected album
+                                                Album selectedAlbum = (Album) sp.getSelectedItem();
+                                                System.out.println("Selected Album is: " + selectedAlbum);
+
+                                                if(selectedAlbum.photos == null){
+                                                    selectedAlbum.photos = new ArrayList<Photo>();
+                                                    selectedAlbum.photos.add(photo);
+                                                } else {
+                                                    selectedAlbum.photos.add(photo);
+                                                }
+
+                                                for(int i = 0; i <= items.size() - 1; i++){
+                                                    if(items.get(i).equals(selectedAlbum)){
+                                                        items.remove(i);
+                                                        break;
+                                                    }
+                                                }
+                                                items.add(selectedAlbum);
+
+                                                saveData();
+                                            }
+                                        }
+                                );
+
+
+
+
+
+                                AlertDialog alert = builder2.create();
+                                alert.show();
                             }
                         }
                 );

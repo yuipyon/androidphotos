@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -32,6 +33,7 @@ public class MainActivity extends AppCompatActivity{
 //testing
     private ListView albumList;
     private Button create;
+    Button search;
     private EditText albumName;
 
     ArrayList<Album> items;
@@ -110,6 +112,7 @@ public class MainActivity extends AppCompatActivity{
         });
 
         create = (Button) findViewById(R.id.create);
+        search = findViewById(R.id.search);
         albumName = (EditText) findViewById(R.id.albumName);
     }
 
@@ -179,9 +182,9 @@ public class MainActivity extends AppCompatActivity{
             listAdapter.notifyDataSetChanged();
             saveAlbumList();
         }
-
-        System.out.println(items);
-        System.out.println(listAdapter);
-
+    }
+    public void showSearchPhotos(View view) {
+        Intent intent = new Intent(this, SearchPhotos.class);
+        startActivity(intent);
     }
 }

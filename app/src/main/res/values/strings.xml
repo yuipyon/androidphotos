@@ -4,6 +4,7 @@
     <string name="view_album">View Album</string>
     <string name="delete_album">Delete Album</string>
     <string name="create_album">Create Album</string>
+    <string name="search">Search photos</string>
     <string name="enter_album_information">Enter Album Information</string>
     <string name="homescreen">Homescreen</string>
     <string name="album_view">Album View</string>
@@ -11,5 +12,7 @@
     <string name="caption">caption</string>
     <string name="previous">Previous</string>
     <string name="next">Next</string>
+    <string name="addTag">Add tag</string>
+    <string name="removeTag">Remove tag</string>
     <string name="todo">TODO</string>
 </resources>
