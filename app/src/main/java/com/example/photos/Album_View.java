@@ -48,7 +48,6 @@ public class Album_View extends AppCompatActivity {
     ListView photoDisplay;
     Button delete;
     Button add;
-    Button display;
 
     private static int RESULT_LOAD_IMAGE = 1;
 
@@ -112,7 +111,7 @@ public class Album_View extends AppCompatActivity {
                             public void onClick(DialogInterface dialog, int which) {
                                 // First delete it from current album
                                 AlertDialog.Builder builder2 = new AlertDialog.Builder(context);
-                                builder2.setMessage("Select the album which you want to move the photo too");
+                                builder2.setMessage("Select the album which you want to move the photo to");
                                 builder2.setCancelable(true);
 
                                 final ArrayAdapter<Album> adp = new ArrayAdapter<Album>(context, android.R.layout.simple_list_item_1, items);
@@ -196,7 +195,6 @@ public class Album_View extends AppCompatActivity {
         });
 
         add = (Button) findViewById(R.id.add);
-        display = (Button) findViewById(R.id.display);
     }
 
     private void saveData(){

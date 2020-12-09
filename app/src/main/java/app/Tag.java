@@ -15,7 +15,7 @@ public class Tag implements Serializable {
 	/**
 	 * String tagName stores the name of the tag (e.g: location).
 	 */
-	TagType tagName;
+	String tagName;
 	
 	/**
 	 * String tagValue stores the value of the tag (e.g: New Brunswick).
@@ -27,7 +27,7 @@ public class Tag implements Serializable {
 	 * @param tagName
 	 * @param tagValue
 	 */
-	public Tag(TagType tagName, String tagValue) {
+	public Tag(String tagName, String tagValue) {
 		this.tagName = tagName;
 		this.tagValue = tagValue;
 	}
@@ -36,12 +36,12 @@ public class Tag implements Serializable {
 	 * getTagName gets the name of the tag.
 	 * @return String
 	 */
-	public TagType getTagName() {
+	public String getTagName() {
 		return tagName;
 	}
 	
 	public String getTagNameString() {
-		return tagName.name;
+		return tagName;
 	}
 	
 	/**
@@ -56,6 +56,6 @@ public class Tag implements Serializable {
 	 * Returns the tag name and tag value.
 	 */
 	public String toString() {
-		return tagName.toString() + ":" + tagValue;
+		return tagName + ":" + tagValue;
 	}
 }

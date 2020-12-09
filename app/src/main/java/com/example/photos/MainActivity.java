@@ -34,8 +34,6 @@ public class MainActivity extends AppCompatActivity{
     private ListView albumList;
     private Button create;
     Button search;
-    private EditText albumName;
-
     ArrayList<Album> items;
     ArrayAdapter<Album> listAdapter;
     Album album;
@@ -70,7 +68,7 @@ public class MainActivity extends AppCompatActivity{
                 builder1.setCancelable(true);
 
                 final EditText input = new EditText(context);
-                input.setText("Rename selected album", TextView.BufferType.EDITABLE);
+                input.setHint("Rename selected album");
                 input.setInputType(InputType.TYPE_CLASS_TEXT);
                 builder1.setView(input);
 
@@ -89,12 +87,7 @@ public class MainActivity extends AppCompatActivity{
                         "Rename Album",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-                                listAdapter.remove(album);
-
-                                Album replace = new Album(input.getText().toString());
-                                listAdapter.add(replace);
-
-
+                                album.setName(input.getText().toString());
                                 saveAlbumList();
                             }
                         });
@@ -117,7 +110,6 @@ public class MainActivity extends AppCompatActivity{
 
         create = (Button) findViewById(R.id.create);
         search = findViewById(R.id.search);
-        albumName = (EditText) findViewById(R.id.albumName);
     }
 
     private void saveAlbumList(){
@@ -160,7 +152,7 @@ public class MainActivity extends AppCompatActivity{
         builder.setCancelable(true);
 
         final EditText input = new EditText(this);
-        input.setText("Enter the album's name", TextView.BufferType.EDITABLE);
+        input.setHint("Enter the album's name");
         input.setInputType(InputType.TYPE_CLASS_TEXT);
         builder.setView(input);
 

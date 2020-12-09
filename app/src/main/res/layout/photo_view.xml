@@ -46,7 +46,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/tags"
         android:layout_width="193dp"
         android:layout_height="23dp"
         android:layout_marginStart="16dp"
