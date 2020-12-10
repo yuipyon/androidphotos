@@ -95,7 +95,7 @@ public class Photo implements Serializable{
     public String printTags() {
         StringBuffer sb = new StringBuffer();
         for (Tag t : tags) {
-            sb.append(t.toString());
+            sb.append(t);
             sb.append(", ");
         }
         String str = sb.toString();
