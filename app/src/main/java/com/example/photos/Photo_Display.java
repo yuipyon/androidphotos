@@ -24,8 +24,10 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 import app.Album;
@@ -43,6 +45,7 @@ public class Photo_Display extends AppCompatActivity {
     Button removeTag;
     TextView tags;
     ArrayList<String> tagtypes;
+    ArrayList<Album> items;
 
     Album curr_album;
     int index;
@@ -54,6 +57,8 @@ public class Photo_Display extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.photo_view);
+
+        loadAlbumList();
 
         if(getIntent().getExtras() != null){
             curr_album = (Album) getIntent().getSerializableExtra("Album Name");
@@ -87,6 +92,26 @@ public class Photo_Display extends AppCompatActivity {
             tagtypes.add("person");
             tagtypes.add("location");
             tags.setText(curr_photo.printTags());
+        }
+    }
+
+    private void saveAlbumList(){
+        SharedPreferences sp = getSharedPreferences("shared preferences", MODE_PRIVATE);
+        SharedPreferences.Editor e = sp.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(items);
+        e.putString("task list", json);
+        e.apply();
+    }
+
+    private void loadAlbumList(){
+        SharedPreferences sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = sharedPreferences.getString("task list", null);
+        Type type = new TypeToken<ArrayList<Album>>() {}.getType();
+        items = gson.fromJson(json, type);
+        if (items == null) {
+            items = new ArrayList<>();
         }
     }
 
@@ -188,7 +213,33 @@ public class Photo_Display extends AppCompatActivity {
                     if (proceed) {
                         Tag newTag = new Tag(type, value);
                         curr_photo.tags.add(newTag);
-                        tags.setText(curr_photo.printTags());
+
+                        for(int i = 0; i <= curr_album.photos.size() - 1; i++){
+                            if(curr_album.photos.get(i).equals(curr_photo)){
+                                curr_album.photos.remove(i);
+                                break;
+                            }
+                        }
+                        curr_album.photos.add(curr_photo);
+
+                        for(int i = 0; i <= items.size() - 1; i++){
+                            if(items.get(i).equals(curr_album)){
+                                items.remove(i);
+                                break;
+                            }
+                        }
+
+                        items.add(curr_album);
+
+                        saveAlbumList();
+
+                        if(tags != null){
+                            tags.setText(curr_photo.printTags());
+                        } else {
+                            tags.setText(tags.getText() + curr_photo.printTags());
+                        }
+
+                        System.out.println("Saving");
                     }
                 }
                 });
@@ -228,6 +279,51 @@ public class Photo_Display extends AppCompatActivity {
                     if (tagToRemove != null) {
                         tagsList.remove(tagToRemove);
                         tags.setText(curr_photo.printTags());
+
+                        if(curr_photo.tags == null){
+                            curr_photo.tags = new ArrayList<Tag>();
+                            curr_photo.tags = tagsList;
+
+                            for(int i = 0; i <= curr_album.photos.size() - 1; i++){
+                                if(curr_album.photos.get(i).equals(curr_photo)){
+                                    curr_album.photos.remove(i);
+                                    break;
+                                }
+                            }
+                            curr_album.photos.add(curr_photo);
+
+                            for(int i = 0; i <= items.size() - 1; i++){
+                                if(items.get(i).equals(curr_album)){
+                                    items.remove(i);
+                                    break;
+                                }
+                            }
+
+                            items.add(curr_album);
+
+                            saveAlbumList();
+                        } else {
+                            curr_photo.tags = tagsList;
+
+                            for(int i = 0; i <= curr_album.photos.size() - 1; i++){
+                                if(curr_album.photos.get(i).equals(curr_photo)){
+                                    curr_album.photos.remove(i);
+                                    break;
+                                }
+                            }
+                            curr_album.photos.add(curr_photo);
+
+                            for(int i = 0; i <= items.size() - 1; i++){
+                                if(items.get(i).equals(curr_album)){
+                                    items.remove(i);
+                                    break;
+                                }
+                            }
+
+                            items.add(curr_album);
+
+                            saveAlbumList();
+                        }
                     }
                 }
             }

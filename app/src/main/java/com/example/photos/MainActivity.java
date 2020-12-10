@@ -46,11 +46,13 @@ public class MainActivity extends AppCompatActivity{
 
         albumList = (ListView) findViewById(R.id.albumView);
 
-        loadAlbumList();
-
         if(getIntent().getExtras() != null){
             items = (ArrayList<Album>) getIntent().getSerializableExtra("Album Content");
         }
+
+        loadAlbumList();
+
+
 
         listAdapter = new ArrayAdapter<Album>(this, android.R.layout.simple_list_item_1, items);
         albumList.setAdapter(listAdapter);
