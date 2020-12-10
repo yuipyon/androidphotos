@@ -103,6 +103,8 @@ public class Photo_Display extends AppCompatActivity {
             }
 
             image.setImageBitmap(bitmap);
+            curr_photo = curr_album.photos.get(index);
+            tags.setText(curr_photo.printTags());
         } else {
             index--;
         }
@@ -121,6 +123,8 @@ public class Photo_Display extends AppCompatActivity {
             }
 
             image.setImageBitmap(bitmap);
+            curr_photo = curr_album.photos.get(index);
+            tags.setText(curr_photo.printTags());
         } else {
             index++;
         }
@@ -130,8 +134,8 @@ public class Photo_Display extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         saveData();
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra("Album Content", curr_album.photos);
+        Intent intent = new Intent(this, Album_View.class);
+        intent.putExtra("Album Name", curr_album);
         startActivity(intent);
     }
 
@@ -150,49 +154,46 @@ public class Photo_Display extends AppCompatActivity {
         Context context = this;
         curr_photo = curr_album.photos.get(index);
         tagsList = curr_photo.tags;
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setMessage("Add a new tag");
-        builder.setCancelable(true);
 
-        Spinner spinner = new Spinner(Photo_Display.this);
+        LayoutInflater factory = LayoutInflater.from(this);
+
+//text_entry is an Layout XML file containing two text field to display in alert dialog
+        final View addTagView = factory.inflate(R.layout.add_tag_contents, null);
+
+        final EditText tagValue = (EditText) addTagView.findViewById(R.id.tagValue);
+        final Spinner tagTypes = (Spinner) addTagView.findViewById(R.id.tagTypes);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(context, android.R.layout.simple_list_item_1, tagtypes);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
+        tagTypes.setAdapter(adapter);
 
-        EditText tagValue = new EditText(context);
-        tagValue.setHint("Enter tag value here");
-        tagValue.setInputType(InputType.TYPE_CLASS_TEXT);
-        builder.setView(spinner);
-        builder.setView(tagValue);
-
-        builder.setPositiveButton(
-                "Add",
-                new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                boolean proceed = true;
-                String type = (String) spinner.getSelectedItem();
-                String value = tagValue.getText().toString();
-                for (Tag t : tagsList) {
-                    if (type.equals("location") && t.getTagName().equals("location")) {
-                        alert(view, type);
-                        proceed = false;
-                        break;
+        final AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setMessage("Add a new tag:").setCancelable(true).setView(addTagView).setPositiveButton("Save",
+            new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    boolean proceed = true;
+                    String type = (String) tagTypes.getSelectedItem();
+                    String value = tagValue.getText().toString();
+                    for (Tag t : tagsList) {
+                        if (type.equals("location") && t.getTagName().equals("location")) {
+                            alert(view, type);
+                            proceed = false;
+                            break;
+                        }
+                        if (type.equals("person") && t.getTagName().equals("person") && t.getTagValue().equals(value)) {
+                            alert(view, type);
+                            proceed = false;
+                            break;
+                        }
                     }
-                    if (type.equals("person") && t.getTagName().equals("person") && t.getTagValue().equals(value)) {
-                        alert(view, type);
-                        proceed = false;
-                        break;
+                    if (proceed) {
+                        Tag newTag = new Tag(type, value);
+                        curr_photo.tags.add(newTag);
+                        tags.setText(curr_photo.printTags());
                     }
                 }
-                if (proceed) {
-                    Tag newTag = new Tag(type, value);
-                    curr_photo.tags.add(newTag);
-                    tags.setText(curr_photo.printTags());
-                }
-            }
-        });
+                });
 
-        builder.setNegativeButton(
+        alert.setNegativeButton(
             "Cancel",
             new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
@@ -200,8 +201,7 @@ public class Photo_Display extends AppCompatActivity {
                 }
             }
         );
-        AlertDialog alert1 = builder.create();
-        alert1.show();
+        alert.show();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -214,7 +214,7 @@ public class Photo_Display extends AppCompatActivity {
         builder.setCancelable(true);
 
         Spinner spinner = new Spinner(Photo_Display.this);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(context, android.R.layout.simple_list_item_1, curr_photo.printTagsString());
+        ArrayAdapter<Tag> adapter = new ArrayAdapter<Tag>(context, android.R.layout.simple_list_item_1, tagsList);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
         builder.setView(spinner);
