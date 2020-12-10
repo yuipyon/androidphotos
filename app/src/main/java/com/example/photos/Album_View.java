@@ -1,27 +1,22 @@
 package com.example.photos;
 
 import android.app.ActionBar;
-import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.text.InputType;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -34,8 +29,6 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
@@ -46,8 +39,8 @@ import app.Photo;
 public class Album_View extends AppCompatActivity {
 
     ListView photoDisplay;
-    Button delete;
     Button add;
+    TextView albumName;
 
     private static int RESULT_LOAD_IMAGE = 1;
 
@@ -174,9 +167,8 @@ public class Album_View extends AppCompatActivity {
                         "Delete Photo",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-                                photoAdapter.remove(photo);
                                 curr_album.photos.remove(photo);
-
+                                photoAdapter.notifyDataSetChanged();
                                 for(int i = 0; i <= items.size() - 1; i++){
                                     if(items.get(i).equals(curr_album)){
                                         items.remove(i);
@@ -196,6 +188,8 @@ public class Album_View extends AppCompatActivity {
         });
 
         add = (Button) findViewById(R.id.add);
+        albumName = findViewById(R.id.albumName);
+        albumName.setText("Album name: " + curr_album.getName());
     }
 
     private void saveData(){
@@ -286,7 +280,6 @@ public class Album_View extends AppCompatActivity {
 
                     saveData();
 
-                    //photoAdapter.add(toAdd);
                     photoAdapter.notifyDataSetChanged();
                 } else {
                     AlertDialog.Builder builder1 = new AlertDialog.Builder(this);

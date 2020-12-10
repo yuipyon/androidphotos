@@ -90,6 +90,7 @@ public class MainActivity extends AppCompatActivity{
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 album.setName(input.getText().toString());
+                                listAdapter.notifyDataSetChanged();
                                 saveAlbumList();
                             }
                         });

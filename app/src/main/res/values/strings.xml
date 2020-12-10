@@ -8,7 +8,7 @@
     <string name="searchBar">Search...</string>
     <string name="enter_album_information">Enter Album Information</string>
     <string name="homescreen">Homescreen</string>
-    <string name="album_view">Album View</string>
+    <string name="album_view">Album name: </string>
     <string name="tags">Tags:</string>
     <string name="caption">caption</string>
     <string name="previous">Previous</string>

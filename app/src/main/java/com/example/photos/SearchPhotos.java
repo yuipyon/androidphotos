@@ -82,9 +82,9 @@ public class SearchPhotos extends AppCompatActivity {
             if (andOr.getSelectedItem().toString().equals("and")) {
                 for (Photo p : allPhotos) {
                     for (Tag t : p.tags) {
-                        if (t.toString().contains(tag1.toString())) {
+                        if (t.toString().startsWith(tag1.toString())) {
                             for (Tag u : p.tags) {
-                                if (u.toString().contains(tag2.toString())) {
+                                if (u.toString().startsWith(tag2.toString())) {
                                     searchedPhotos.add(p);
                                 }
                             }
@@ -95,7 +95,7 @@ public class SearchPhotos extends AppCompatActivity {
             else if (andOr.getSelectedItem().toString().equals("or")) {
                 for (Photo p : allPhotos) {
                     for (Tag t : p.tags) {
-                        if (t.toString().contains(tag1.toString()) || t.toString().contains(tag2.toString())) {
+                        if (t.toString().startsWith(tag1.toString()) || t.toString().startsWith(tag2.toString())) {
                             searchedPhotos.add(p);
                         }
                     }
@@ -106,7 +106,7 @@ public class SearchPhotos extends AppCompatActivity {
             Tag newTag = new Tag(tagType1.getSelectedItem().toString(), tagValue1.getText().toString());
             for (Photo p : allPhotos) {
                 for (Tag t : p.tags) {
-                    if (t.toString().contains(newTag.toString())) {
+                    if (t.toString().startsWith(newTag.toString())) {
                         searchedPhotos.add(p);
                     }
                 }
@@ -116,7 +116,7 @@ public class SearchPhotos extends AppCompatActivity {
             Tag newTag = new Tag(tagType2.getSelectedItem().toString(), tagValue2.getText().toString());
             for (Photo p : allPhotos) {
                 for (Tag t : p.tags) {
-                    if (t.toString().contains(newTag.toString())) {
+                    if (t.toString().startsWith(newTag.toString())) {
                         searchedPhotos.add(p);
                     }
                 }
