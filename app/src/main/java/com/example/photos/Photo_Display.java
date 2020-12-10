@@ -9,7 +9,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -31,7 +30,6 @@ import java.util.ArrayList;
 import app.Album;
 import app.Photo;
 import app.Tag;
-import app.TagType;
 
 
 public class Photo_Display extends AppCompatActivity {
@@ -42,7 +40,7 @@ public class Photo_Display extends AppCompatActivity {
     Button addTag;
     Button removeTag;
     TextView tags;
-    ArrayList<String> tagtypes;
+    ArrayList<String> tagtypes = new ArrayList<String>();
 
     Album curr_album;
     int index;
@@ -78,16 +76,9 @@ public class Photo_Display extends AppCompatActivity {
         removeTag = findViewById(R.id.removeTag);
         tags = findViewById(R.id.tags);
 
-        if(tagtypes == null){
-            tagtypes = new ArrayList<String>();
-            tagtypes.add("person");
-            tagtypes.add("location");
-            tags.setText(curr_photo.printTags());
-        } else {
-            tagtypes.add("person");
-            tagtypes.add("location");
-            tags.setText(curr_photo.printTags());
-        }
+        tagtypes.add("person");
+        tagtypes.add("location");
+        tags.setText(curr_photo.printTags());
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)

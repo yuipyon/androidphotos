@@ -51,7 +51,8 @@ public class Album_View extends AppCompatActivity {
 
     private static int RESULT_LOAD_IMAGE = 1;
 
-    ArrayList<Album> items; ArrayList<Photo> photos;
+    ArrayList<Album> items;
+    ArrayList<Photo> photos;
     Album curr_album;
     Photo photo;
 

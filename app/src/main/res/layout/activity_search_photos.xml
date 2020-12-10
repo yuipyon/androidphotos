@@ -7,13 +7,59 @@
     tools:context=".SearchPhotos">
 
     <EditText
-        android:id="@+id/searchbar"
-        android:layout_width="match_parent"
+        android:id="@+id/tagvalue1"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="79dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginLeft="48dp"
+        android:layout_marginTop="120dp"
         android:background="@android:drawable/editbox_background"
-        android:hint="Type in the tag name"
+        android:hint="search..."
         android:textSize="20sp"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="0dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/tagvalue2"
+        android:layout_width="77dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="131dp"
+        android:layout_marginLeft="131dp"
+        android:layout_marginTop="120dp"
+        android:layout_marginEnd="70dp"
+        android:layout_marginRight="70dp"
+        android:background="@android:drawable/editbox_background"
+        android:hint="search..."
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/tagvalue1"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Spinner
+        android:id="@+id/andOr"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="123dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginRight="40dp"
+        app:layout_constraintEnd_toStartOf="@+id/tagvalue2"
+        app:layout_constraintStart_toEndOf="@+id/tagvalue1"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Spinner
+        android:id="@+id/tagtype2"
+        android:layout_width="48dp"
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteX="256dp"
+        tools:layout_editor_absoluteY="76dp" />
+
+    <Spinner
+        android:id="@+id/tagtype1"
+        android:layout_width="48dp"
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteX="48dp"
+        tools:layout_editor_absoluteY="76dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
