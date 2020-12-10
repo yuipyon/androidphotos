@@ -200,7 +200,7 @@ public class MainActivity extends AppCompatActivity{
 
     public void showSearchPhotos(View view){
         Intent intent=new Intent(this,SearchPhotos.class);
-        intent.putExtra("Album List", items);
+        intent.putExtra("Album Content", items);
         startActivity(intent);
     }
 }

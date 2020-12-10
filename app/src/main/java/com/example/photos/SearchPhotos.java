@@ -1,8 +1,10 @@
 package com.example.photos;
 
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -54,6 +56,7 @@ public class SearchPhotos extends AppCompatActivity {
                 }
             }
         }
+
         searchButton = findViewById(R.id.searchButton);
         tagType1 = findViewById(R.id.tagtype1);
         tagType2 = findViewById(R.id.tagtype2);
@@ -72,6 +75,69 @@ public class SearchPhotos extends AppCompatActivity {
     }
 
     public void search(View view) {
+        searchedPhotos.clear();
+        if (!tagValue1.getText().toString().isEmpty() && !tagValue2.getText().toString().isEmpty()) {
+            Tag tag1 = new Tag(tagType1.getSelectedItem().toString(), tagValue1.getText().toString());
+            Tag tag2 = new Tag(tagType2.getSelectedItem().toString(), tagValue2.getText().toString());
+            if (andOr.getSelectedItem().toString().equals("and")) {
+                for (Photo p : allPhotos) {
+                    for (Tag t : p.tags) {
+                        if (t.toString().equals(tag1.toString())) {
+                            for (Tag u : p.tags) {
+                                if (u.toString().equals(tag2.toString())) {
+                                    searchedPhotos.add(p);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            else if (andOr.getSelectedItem().toString().equals("or")) {
+                for (Photo p : allPhotos) {
+                    for (Tag t : p.tags) {
+                        if (t.toString().equals(tag1.toString()) || t.toString().equals(tag2.toString())) {
+                            searchedPhotos.add(p);
+                        }
+                    }
+                }
+            }
+        }
+        else if (!tagValue1.getText().toString().isEmpty()) {
+            Tag newTag = new Tag(tagType1.getSelectedItem().toString(), tagValue1.getText().toString());
+            for (Photo p : allPhotos) {
+                for (Tag t : p.tags) {
+                    if (t.toString().equals(newTag.toString())) {
+                        searchedPhotos.add(p);
+                    }
+                }
+            }
+        }
+        else if (!tagValue2.getText().toString().isEmpty()) {
+            Tag newTag = new Tag(tagType2.getSelectedItem().toString(), tagValue2.getText().toString());
+            for (Photo p : allPhotos) {
+                for (Tag t : p.tags) {
+                    if (t.toString().equals(newTag.toString())) {
+                        searchedPhotos.add(p);
+                    }
+                }
+            }
+        }
 
+        if (searchedPhotos == null) {
+            final AlertDialog.Builder alert = new AlertDialog.Builder(this);
+            alert.setMessage("No matching results were found. Please try a different search.");
+            alert.setPositiveButton(
+                    "OK",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+            alert.show();
+        }
+        else {
+            photoAdapter = new ThumbnailAdapter(this, searchedPhotos);
+            searchResults.setAdapter(photoAdapter);
+        }
     }
 }
