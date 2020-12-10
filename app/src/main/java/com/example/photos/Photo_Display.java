@@ -172,8 +172,6 @@ public class Photo_Display extends AppCompatActivity {
         tagsList = curr_photo.tags;
 
         LayoutInflater factory = LayoutInflater.from(this);
-
-//text_entry is an Layout XML file containing two text field to display in alert dialog
         final View addTagView = factory.inflate(R.layout.add_tag_contents, null);
 
         final EditText tagValue = (EditText) addTagView.findViewById(R.id.tagValue);
@@ -221,19 +219,11 @@ public class Photo_Display extends AppCompatActivity {
                         }
 
                         items.add(curr_album);
-
                         saveAlbumList();
-
-                        if(tags != null){
-                            tags.setText(curr_photo.printTags());
-                        } else {
-                            tags.setText(tags.getText() + curr_photo.printTags());
-                        }
-
-                        System.out.println("Saving");
+                        tags.setText(curr_photo.printTags());
                     }
                 }
-                });
+            });
 
         alert.setNegativeButton(
             "Cancel",
