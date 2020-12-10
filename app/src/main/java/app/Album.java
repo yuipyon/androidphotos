@@ -65,6 +65,7 @@ public class Album implements Serializable{
      */
     public Album(String name) {
         this.name = name;
+        this.photos = new ArrayList<Photo>();
     }
 
     /**

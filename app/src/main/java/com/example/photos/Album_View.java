@@ -286,7 +286,7 @@ public class Album_View extends AppCompatActivity {
 
                     saveData();
 
-                    photoAdapter.add(toAdd);
+                    //photoAdapter.add(toAdd);
                     photoAdapter.notifyDataSetChanged();
                 } else {
                     AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
