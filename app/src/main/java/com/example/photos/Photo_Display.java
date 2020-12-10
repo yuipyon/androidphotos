@@ -149,8 +149,8 @@ public class Photo_Display extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onBackPressed() {
-        saveData();
         Intent intent = new Intent(this, Album_View.class);
+        //intent.putExtra("Album Content", items);
         intent.putExtra("Album Name", curr_album);
         startActivity(intent);
     }
