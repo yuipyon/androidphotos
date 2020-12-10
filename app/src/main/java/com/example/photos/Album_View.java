@@ -134,7 +134,6 @@ public class Album_View extends AppCompatActivity {
 
                                                 // Now lets add it to the selected album
                                                 Album selectedAlbum = (Album) sp.getSelectedItem();
-                                                System.out.println("Selected Album is: " + selectedAlbum);
 
                                                 if(selectedAlbum.photos == null){
                                                     selectedAlbum.photos = new ArrayList<Photo>();
@@ -261,7 +260,6 @@ public class Album_View extends AppCompatActivity {
                 boolean photoExists = photoExists(toAdd, curr_album);
 
                 if(photoExists == false){
-                    System.out.println("Picture we are adding: " + toAdd);
 
                     if(curr_album.photos == null){
                         curr_album.photos = new ArrayList<Photo>();

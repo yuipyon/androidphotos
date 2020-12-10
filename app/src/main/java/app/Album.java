@@ -40,26 +40,6 @@ public class Album implements Serializable{
     public ArrayList<Photo> photos;
 
     /**
-     * int numPhotos stores the number of photos in the album.
-     */
-    public int numPhotos;
-
-    /**
-     * LocalDate startingDateRange stores the start date of an album.
-     */
-    public LocalDate startingDateRange;
-
-    /**
-     * LocalDate endingDateRange stores the ending date of an album.
-     */
-    public LocalDate endingDateRange;
-
-    /**
-     * DateTimeFormatter dateFormatter formats the date ranges from LocalDate format to MM/dd/yyyy format.
-     */
-    private static final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
-
-    /**
      * Album creates a new instance of Album.
      * @param name
      */
@@ -82,61 +62,6 @@ public class Album implements Serializable{
      */
     public void setName(String name) {
         this.name = name;
-    }
-
-    /**
-     * getPhotoCount returns the number of photos in that album.
-     * @return int
-     */
-    public int getPhotoCount() {
-        if (photos != null) {
-            numPhotos = photos.size();
-            return numPhotos;
-        }
-        else
-            return 0;
-    }
-
-    /**
-     * setPhotoCount sets the number of photos in the album.
-     * @param count
-     */
-    public void setPhotoCount(int count) {
-        this.numPhotos = count;
-    }
-
-    /**
-     * getDateRange returns the date range of the album.
-     * @return Date
-     */
-    public String getDateRange() {
-        if (photos == null)
-            return "";
-        return startingDateRange.format(dateFormatter) + " - " + endingDateRange.format(dateFormatter);
-    }
-
-    /**
-     * getStartingDateRange gets the starting date range.
-     */
-    public void getStartingDateRange() {
-        startingDateRange = photos.get(0).date;
-        for (int i = 1; i < photos.size(); i++) {
-            LocalDate temp = photos.get(i).date;
-            if (temp.compareTo(startingDateRange) < 0)
-                startingDateRange = temp;
-        }
-    }
-
-    /**
-     * getEndingDateRange gets the ending date range.
-     */
-    public void getEndingDateRange() {
-        endingDateRange = photos.get(0).date;
-        for (int i = 1; i < photos.size(); i++) {
-            LocalDate temp = photos.get(i).date;
-            if (temp.compareTo(endingDateRange) > 0)
-                endingDateRange = temp;
-        }
     }
 
     /**

@@ -90,8 +90,8 @@
 
     <TextView
         android:id="@+id/tags"
-        android:layout_width="304dp"
-        android:layout_height="62dp"
+        android:layout_width="310dp"
+        android:layout_height="141dp"
         android:layout_marginStart="22dp"
         android:layout_marginLeft="22dp"
         android:layout_marginTop="126dp"
@@ -101,9 +101,9 @@
         android:text="tags"
         app:layout_constraintBottom_toTopOf="@+id/addTag"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.044"
+        app:layout_constraintHorizontal_bias="0.064"
         app:layout_constraintStart_toEndOf="@+id/textView4"
         app:layout_constraintTop_toBottomOf="@+id/picture"
-        app:layout_constraintVertical_bias="0.432" />
+        app:layout_constraintVertical_bias="0.328" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -36,8 +36,6 @@ public class SearchPhotos extends AppCompatActivity {
     ListView searchResults;
     ThumbnailAdapter photoAdapter;
     ArrayList<Photo> searchedPhotos = new ArrayList<Photo>();
-//    photos = curr_album.photos;
-//    photoAdapter = new ThumbnailAdapter(this, photos);
 
 
     @RequiresApi(api = Build.VERSION_CODES.O)

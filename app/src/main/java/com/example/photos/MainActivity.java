@@ -190,8 +190,6 @@ public class MainActivity extends AppCompatActivity{
                             saveAlbumList();
                         }
 
-                        System.out.println(items);
-                        System.out.println(listAdapter);
                     }
                 });
 

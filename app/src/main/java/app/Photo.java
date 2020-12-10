@@ -47,23 +47,11 @@ public class Photo implements Serializable{
     public String filepath;
 
     /**
-     * String caption is the caption of the photo.
-     */
-    public String caption = " ";
-
-    /**
      * ArrayList<Tag> tags contains the tags pertaining to the photo.
      */
     public ArrayList<Tag> tags;
 
-    /**
-     * LocalDate date records the time in which the photo was taken - in other words, the last modification date.
-     */
-    public LocalDate date;
-
     transient Bitmap image;
-
-    public ImageView pic;
 
     public String uri;
 
@@ -81,9 +69,6 @@ public class Photo implements Serializable{
         this.image = image;
     }
 
-    public Bitmap getImage(){
-        return image;
-    }
 
     /**
      * toString returns the name of the photo.
@@ -99,14 +84,6 @@ public class Photo implements Serializable{
             sb.append(", ");
         }
         String str = sb.toString();
-        return str;
-    }
-
-    public ArrayList<String> printTagsString() {
-        ArrayList<String> str = new ArrayList<String>();
-        for (Tag t : tags) {
-            str.add(t.toString());
-        }
         return str;
     }
 
@@ -129,20 +106,5 @@ public class Photo implements Serializable{
         Photo p = (Photo)o;
         return photoName.equals(p.photoName);
     }
-
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    public LocalDate setDate(File file) throws IOException {
-        Path path = Paths.get(file.getAbsolutePath());
-        BasicFileAttributes attr = Files.readAttributes(path, BasicFileAttributes.class);
-        FileTime fileTime = attr.lastModifiedTime();
-        LocalDate localDate = fileTime.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        return localDate;
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    public String getDate(LocalDate date) {
-        return date.format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
-    }
-
 
 }
