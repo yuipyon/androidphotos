@@ -8,8 +8,8 @@
 
     <EditText
         android:id="@+id/tagvalue1"
-        android:layout_width="120dp"
-        android:layout_height="40dp"
+        android:layout_width="116dp"
+        android:layout_height="35dp"
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="104dp"
@@ -69,19 +69,19 @@
 
     <ListView
         android:id="@+id/searchResults"
-        android:layout_width="357dp"
-        android:layout_height="442dp"
+        android:layout_width="350dp"
+        android:layout_height="357dp"
         android:layout_marginStart="15dp"
         android:layout_marginLeft="15dp"
-        android:layout_marginTop="65dp"
+        android:layout_marginTop="40dp"
         android:layout_marginEnd="14dp"
         android:layout_marginRight="14dp"
         android:layout_marginBottom="7dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.481"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchButton" />
+        app:layout_constraintTop_toBottomOf="@+id/searchButton"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/searchButton"

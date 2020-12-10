@@ -233,6 +233,16 @@ public class Album_View extends AppCompatActivity {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
+    private boolean photoExists(Photo photo, Album album){
+        for(int i = 0; i <= album.photos.size() - 1; i++){
+               if(album.photos.get(i).equals(photo)) {
+                   return true;
+               }
+        }
+        return false;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -254,27 +264,48 @@ public class Album_View extends AppCompatActivity {
                 toAdd.photoName = file.getName();
                 toAdd.filepath = file.getAbsolutePath();
 
-                System.out.println("Picture we are adding: " + toAdd);
+                boolean photoExists = photoExists(toAdd, curr_album);
 
-                if(curr_album.photos == null){
-                    curr_album.photos = new ArrayList<Photo>();
-                    curr_album.photos.add(toAdd);
-                } else {
-                    curr_album.photos.add(toAdd);
-                }
+                if(photoExists == false){
+                    System.out.println("Picture we are adding: " + toAdd);
 
-                for(int i = 0; i <= items.size() - 1; i++){
-                    if(items.get(i).equals(curr_album)){
-                        items.remove(i);
-                        break;
+                    if(curr_album.photos == null){
+                        curr_album.photos = new ArrayList<Photo>();
+                        curr_album.photos.add(toAdd);
+                    } else {
+                        curr_album.photos.add(toAdd);
                     }
+
+                    for(int i = 0; i <= items.size() - 1; i++){
+                        if(items.get(i).equals(curr_album)){
+                            items.remove(i);
+                            break;
+                        }
+                    }
+                    items.add(curr_album);
+
+                    saveData();
+
+                    photoAdapter.add(toAdd);
+                    photoAdapter.notifyDataSetChanged();
+                } else {
+                    AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
+                    builder1.setMessage("This Photo already exists");
+                    builder1.setCancelable(true);
+
+                    builder1.setPositiveButton(
+                            "Go Back",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    dialog.cancel();
+                                }
+                            });
+
+                    AlertDialog alert11 = builder1.create();
+                    alert11.show();
                 }
-                items.add(curr_album);
 
-                saveData();
 
-                photoAdapter.add(toAdd);
-                photoAdapter.notifyDataSetChanged();
             }
         }
     }
