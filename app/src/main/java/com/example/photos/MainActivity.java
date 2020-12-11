@@ -66,13 +66,8 @@ public class MainActivity extends AppCompatActivity{
                 album = (Album) adapterView.getAdapter().getItem(position);
 
                 AlertDialog.Builder builder1 = new AlertDialog.Builder(context);
-                builder1.setMessage("Options");
+                builder1.setTitle("Options");
                 builder1.setCancelable(true);
-
-                final EditText input = new EditText(context);
-                input.setHint("Rename selected album");
-                input.setInputType(InputType.TYPE_CLASS_TEXT);
-                builder1.setView(input);
 
                 builder1.setPositiveButton(
                         "View Album",
@@ -89,9 +84,34 @@ public class MainActivity extends AppCompatActivity{
                         "Rename Album",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-                                album.setName(input.getText().toString());
-                                listAdapter.notifyDataSetChanged();
-                                saveAlbumList();
+                                AlertDialog.Builder alert = new AlertDialog.Builder(context);
+                                alert.setTitle("Rename album");
+                                alert.setCancelable(true);
+                                final EditText input = new EditText(context);
+                                input.setHint("Type in new name here");
+                                input.setInputType(InputType.TYPE_CLASS_TEXT);
+                                alert.setView(input);
+                                alert.setPositiveButton(
+                                    "Apply",
+                                    new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            album.setName(input.getText().toString());
+                                            listAdapter.notifyDataSetChanged();
+                                            saveAlbumList();
+                                        }
+                                    }
+                                );
+                                alert.setNegativeButton(
+                                    "Cancel",
+                                    new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            dialog.cancel();
+                                        }
+                                    }
+                                );
+                                alert.show();
                             }
                         });
 
