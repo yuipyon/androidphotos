@@ -124,8 +124,7 @@ public class SearchPhotos extends AppCompatActivity {
                 }
             }
         }
-
-        if (searchedPhotos == null) {
+        if (searchedPhotos.isEmpty()) {
             final AlertDialog.Builder alert = new AlertDialog.Builder(this);
             alert.setMessage("No matching results were found. Please try a different search.");
             alert.setPositiveButton(
