@@ -156,16 +156,6 @@ public class Photo_Display extends AppCompatActivity {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    private void saveData(){
-        SharedPreferences sp = getSharedPreferences("shared preferences", MODE_PRIVATE);
-        SharedPreferences.Editor e = sp.edit();
-        Gson gson = new Gson();
-        String json = gson.toJson(curr_album.photos);
-        e.putString("task list", json);
-        e.apply();
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.O)
     public void addTag(View view) {
         Context context = this;
         curr_photo = curr_album.photos.get(index);
@@ -202,23 +192,24 @@ public class Photo_Display extends AppCompatActivity {
                     if (proceed) {
                         Tag newTag = new Tag(type, value);
                         curr_photo.tags.add(newTag);
-
+                        int temp = 0;
                         for(int i = 0; i <= curr_album.photos.size() - 1; i++){
                             if(curr_album.photos.get(i).equals(curr_photo)){
                                 curr_album.photos.remove(i);
+                                temp = i;
                                 break;
                             }
                         }
-                        curr_album.photos.add(curr_photo);
+                        curr_album.photos.add(temp, curr_photo);
 
-                        for(int i = 0; i <= items.size() - 1; i++){
-                            if(items.get(i).equals(curr_album)){
-                                items.remove(i);
+                        for(int j = 0; j <= items.size() - 1; j++){
+                            if(items.get(j).equals(curr_album)){
+                                items.remove(j);
+                                temp = j;
                                 break;
                             }
                         }
-
-                        items.add(curr_album);
+                        items.add(temp, curr_album);
                         saveAlbumList();
                         tags.setText(curr_photo.printTags());
                     }
@@ -233,7 +224,8 @@ public class Photo_Display extends AppCompatActivity {
                 }
             }
         );
-        alert.show();
+        AlertDialog alert1 = alert.create();
+        alert1.show();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -260,51 +252,24 @@ public class Photo_Display extends AppCompatActivity {
                     if (tagToRemove != null) {
                         tagsList.remove(tagToRemove);
                         tags.setText(curr_photo.printTags());
-
-                        if(curr_photo.tags == null){
-                            curr_photo.tags = new ArrayList<Tag>();
-                            curr_photo.tags = tagsList;
-
-                            for(int i = 0; i <= curr_album.photos.size() - 1; i++){
-                                if(curr_album.photos.get(i).equals(curr_photo)){
-                                    curr_album.photos.remove(i);
-                                    break;
-                                }
+                        int temp = 0;
+                        for(int i = 0; i <= curr_album.photos.size() - 1; i++){
+                            if(curr_album.photos.get(i).equals(curr_photo)){
+                                curr_album.photos.remove(i);
+                                temp = i;
+                                break;
                             }
-                            curr_album.photos.add(curr_photo);
-
-                            for(int i = 0; i <= items.size() - 1; i++){
-                                if(items.get(i).equals(curr_album)){
-                                    items.remove(i);
-                                    break;
-                                }
-                            }
-
-                            items.add(curr_album);
-
-                            saveAlbumList();
-                        } else {
-                            curr_photo.tags = tagsList;
-
-                            for(int i = 0; i <= curr_album.photos.size() - 1; i++){
-                                if(curr_album.photos.get(i).equals(curr_photo)){
-                                    curr_album.photos.remove(i);
-                                    break;
-                                }
-                            }
-                            curr_album.photos.add(curr_photo);
-
-                            for(int i = 0; i <= items.size() - 1; i++){
-                                if(items.get(i).equals(curr_album)){
-                                    items.remove(i);
-                                    break;
-                                }
-                            }
-
-                            items.add(curr_album);
-
-                            saveAlbumList();
                         }
+                        curr_album.photos.add(temp, curr_photo);
+                        for(int j = 0; j <= items.size() - 1; j++){
+                            if(items.get(j).equals(curr_album)){
+                                items.remove(j);
+                                temp = j;
+                                break;
+                            }
+                        }
+                        items.add(temp, curr_album);
+                        saveAlbumList();
                     }
                 }
             }

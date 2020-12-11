@@ -84,6 +84,7 @@ public class SearchPhotos extends AppCompatActivity {
                             for (Tag u : p.tags) {
                                 if (u.toString().startsWith(tag2.toString())) {
                                     searchedPhotos.add(p);
+                                    break;
                                 }
                             }
                         }
@@ -95,6 +96,7 @@ public class SearchPhotos extends AppCompatActivity {
                     for (Tag t : p.tags) {
                         if (t.toString().startsWith(tag1.toString()) || t.toString().startsWith(tag2.toString())) {
                             searchedPhotos.add(p);
+                            break;
                         }
                     }
                 }
@@ -106,6 +108,7 @@ public class SearchPhotos extends AppCompatActivity {
                 for (Tag t : p.tags) {
                     if (t.toString().startsWith(newTag.toString())) {
                         searchedPhotos.add(p);
+                        break;
                     }
                 }
             }
@@ -116,6 +119,7 @@ public class SearchPhotos extends AppCompatActivity {
                 for (Tag t : p.tags) {
                     if (t.toString().startsWith(newTag.toString())) {
                         searchedPhotos.add(p);
+                        break;
                     }
                 }
             }
